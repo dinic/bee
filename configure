@@ -1,0 +1,18 @@
+#! /bin/sh
+
+cd `dirname $0`
+
+mkdir -p auto
+
+bee_ROOT=`pwd`
+TMPGOPATH=`echo ${bee_ROOT%%/src/github.com*}`
+
+. build/options
+
+bee_PREFIX=${bee_PREFIX:-$bee_ROOT}
+bee_BIN=${bee_BIN:-$bee_PREFIX/bin}
+bee_CONF=${bee_CONF:-$bee_PREFIX/conf}
+. build/config
+. build/makefile
+
+export GOPATH=$bee_BUILD_DIR

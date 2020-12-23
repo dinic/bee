@@ -1,0 +1,26 @@
+echo "auto config ..."
+
+VERSION=`cat VERSION`
+bee_AUTO_CONFIG="${bee_ROOT}/auto/auto_config.go"
+
+cat << END > $bee_AUTO_CONFIG
+package auto
+
+const (
+	VERION = "$VERSION"
+	Prefix  = "$bee_PREFIX/"
+	ConfDir = "$bee_CONF/"
+)
+END
+
+go fmt $bee_AUTO_CONFIG > /dev/null
+
+bee_BUILDINFO="${bee_ROOT}/auto/buildinfo"
+cat << END > $bee_BUILDINFO
+bee_ROOT=$bee_ROOT
+bee_PREFIX=$bee_PREFIX
+BINPATH=$bee_BIN
+CONFPATH=$bee_CONF
+BUILDPATH=$bee_BUILD_DIR
+VERSION=$VERSION
+END
